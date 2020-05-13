@@ -25,7 +25,16 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
+  }
+}, {
+  toJSON: {
+    transform(doc,ret){
+      ret.id = ret._id;
+      delete ret._id;// geriye dönen _id bilgisi id olarak değiştirildi.
+      delete ret.password;//geriye dönen user bilgisinde password, __v bilgisi silindi.
+      delete ret.__v;
+    }
+  }
 });
 
 //veri kayıt olmadan hemen önce password haslenir. Kayıttan önce çalışan middelware
