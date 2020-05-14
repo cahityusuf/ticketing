@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export const currentUser = async (
+export const currentUser = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -29,8 +29,7 @@ export const currentUser = async (
       process.env.JWT_KEY!
     ) as UserPayload;
     req.currentUser = payload;
-  } catch (error) {
-    res.send({ currentUser: null });
-  }
+  } catch (err) {}
+
   next();
 };
