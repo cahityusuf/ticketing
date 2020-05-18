@@ -7,8 +7,12 @@ const start = async () => {
     throw new Error('JWT_KEY must be defined');
   }
 
+  if (!process.env.AUTH_URI) {
+    throw new Error('AUTH_URI must be defined');
+  }
+
   try {
-    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+    await mongoose.connect(process.env.AUTH_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
